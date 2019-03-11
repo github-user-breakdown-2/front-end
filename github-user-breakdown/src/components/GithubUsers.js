@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux'
 
-const Test = props => {
+const GithubUsers = props => {
   return (
     <div>
       {props.test}
@@ -13,4 +13,4 @@ const mapStateToProps = state => ({
   test: state.data
 })
 
-export default connect (mapStateToProps, {})(Test)
+export default connect (mapStateToProps, {})(GithubUsers)

@@ -12,7 +12,7 @@ export const initialState = {
   fetching: false,
   registering: false,
   loggingIn: false,
-  token: "",
+  token: localStorage.getItem('token'),
   error: null
 };
 
