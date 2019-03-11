@@ -9,7 +9,7 @@ const initialState = {
     error: null,
 }
 
-const reducer = (sate = initialState, action) => {
+const reducer = (state = initialState, action) => {
     switch(action.type) {
 
         default:
