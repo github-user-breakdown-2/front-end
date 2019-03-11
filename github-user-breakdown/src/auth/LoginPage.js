@@ -1,9 +1,10 @@
 import React from "react";
+import Loader from "react-loader-spinner";
 import { connect } from "react-redux";
-// import { login } from "../actions";
-import styled from 'styled-components';
+import { login } from "../actions";
+import styled from "styled-components";
 
-const Wrapper = styled.div `
+const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -17,20 +18,24 @@ const Wrapper = styled.div `
     display: flex;
     flex-direction: column;
 
+    input {
+      margin: 10px 0;
+      font-size: 18px;
+    }
+
     button {
-      width: 150px;
-      margin: 10px auto;
+      margin: 10px 0;
       border: none;
-      background-color: #9F86FF;
+      background-color: #9f86ff;
       cursor: pointer;
     }
   }
-`
+`;
 
 class LoginPage extends React.Component {
   state = {
     credentials: {
-      username: "",
+      email: "",
       password: ""
     }
   };
@@ -51,26 +56,42 @@ class LoginPage extends React.Component {
   //   });
   // };
 
+  login = e => {
+    e.preventDefault();
+    this.props.login(this.state.credentials);
+  };
+
+  register = e => {
+    e.preventDefault();
+    this.props.register(this.state.credentials)
+  }
+
   render() {
     return (
       <Wrapper>
         <h1>Login To GitHub Users</h1>
         <form onSubmit={this.login}>
-          <h3>Email</h3>
           <input
             type="text"
-            name="username"
-            value={this.state.credentials.username}
+            name="email"
+            value={this.state.credentials.email}
             onChange={this.handleChange}
+            placeholder="email"
           />
-          <h3>Password</h3>
           <input
             type="password"
             name="password"
             value={this.state.credentials.password}
             onChange={this.handleChange}
+            placeholder="password"
           />
-          <button>Log in</button>
+          <button>
+            {this.props.loggingIn ? (
+              <Loader type="ThreeDots" color="#1f2a38" height="12" width="26" />
+            ) : (
+              "Login"
+            )}
+          </button>
           <button>Sign Up</button>
         </form>
       </Wrapper>
@@ -78,12 +99,12 @@ class LoginPage extends React.Component {
   }
 }
 
-const mapStateToProps = ({error, loggingIn }) => ({
+const mapStateToProps = ({ error, loggingIn }) => ({
   error,
   loggingIn
-})
+});
 
 export default connect(
   mapStateToProps,
-  { }
+  { login }
 )(LoginPage);
