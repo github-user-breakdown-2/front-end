@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-const Test = props => {
+const GithubUsers = props => {
     return (
         <div>
             <p>test</p>
@@ -16,4 +16,4 @@ const mapStateToProps = state => ({
 export default connect(
     mapStateToProps,
     {}
-)(Test);
+)(GithubUsers);

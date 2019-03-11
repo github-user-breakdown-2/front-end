@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
-import LoginPage from './auth/LoginPage';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+
+import LoginPage from './auth/LoginPage';
+import GithubUsers from './components/GithubUsers';
+import PrivateRoute from './components/PrivateRoute';
+
 
 
 class App extends Component {
@@ -9,6 +13,7 @@ class App extends Component {
       <Router>
         <div className="App">
           <Route path='/login' component={LoginPage} />
+          <PrivateRoute exact path="/github-users" component={GithubUsers} />
         </div>
       </Router>
     );
