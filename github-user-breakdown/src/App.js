@@ -1,6 +1,7 @@
 import React, { Component } from "react";
-// import Test from './components/Test';
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import GithubUsers from "./components/GithubUsers";
+import { BrowserRouter as Router, Route} from "react-router-dom";
+import PrivateRoute from "./components/PrivateRoute";
 import LoginPage from "./auth/LoginPage";
 
 class App extends Component {
@@ -8,8 +9,8 @@ class App extends Component {
     return (
       <Router>
         <div className="App">
-          {/* <Test /> */}
           <Route path="/login" component={LoginPage} />
+          <PrivateRoute exact path="/github-users" component={GithubUsers} />
         </div>
       </Router>
     );
