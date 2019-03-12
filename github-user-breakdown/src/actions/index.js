@@ -6,7 +6,7 @@ export const LOGIN_START = "LOGIN_START";
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
 export const LOGIN_FAIL = "LOGIN_FAIL";
 
-const apiDomain = "https://github-user-breakdown-app.herokuapp.com/api";
+const apiDomain = "https://github-user-breakdown-app.herokuapp.com";
 
 export const login = creds => dispatch => {
   dispatch({ type: LOGIN_START });
@@ -21,10 +21,9 @@ export const REGISTER_START = "REGISTER_START";
 export const REGISTER_SUCCESS = "REGISTER_SUCCESS";
 export const REGISTER_FAIL = "REGISTER_FAIL";
 
-export const register = creds => dispatch => {
-  dispatch({ type: REGISTER_START });
+export const register = creds => {
   console.log(creds);
-  axios.post(`${apiDomain}/register`, creds)
+  axios.post(`${apiDomain}/api/register`, creds)
   .then(res => console.log(res.data))
   .catch(err => console.log(err.response.data))
 
