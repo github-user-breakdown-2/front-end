@@ -60,6 +60,7 @@ class LoginPage extends React.Component {
   login = e => {
     e.preventDefault();
     this.props.login(this.state.credentials)
+    this.props.history.push('/github-users')
   };
 
   register = e => {
@@ -72,50 +73,46 @@ class LoginPage extends React.Component {
       <WrapperDiv>
         {/* Sign in section */}
         <LoginDiv>
-          <form onSubmit={this.login}>
-            <FormDiv>
-              <h2>Sign in</h2>
-              <h3>Email address</h3>
-              <Input
-                type="text"
-                name="email"
-                value={this.state.credentials.username}
-                onChange={this.handleChange}
-              />
-              <h3>Password</h3>
-              <Input
-                type="password"
-                name="password"
-                value={this.state.credentials.password}
-                onChange={this.handleChange}
-              />
-              <Button>Sign in</Button>
-            </FormDiv>
-          </form>
+          <FormDiv onSubmit={this.login}>
+            <h2>Sign in</h2>
+            <h3>Email address</h3>
+            <Input
+              type="text"
+              name="email"
+              value={this.state.credentials.email}
+              onChange={this.handleChange}
+            />
+            <h3>Password</h3>
+            <Input
+              type="password"
+              name="password"
+              value={this.state.credentials.password}
+              onChange={this.handleChange}
+            />
+            <Button>Sign in</Button>
+          </FormDiv>
         </LoginDiv>
 
         {/* Create account section */}
         <LoginDiv>
-          <form onSubmit={this.register}>
-            <FormDiv>
-              <h2>Create an account</h2>
-              <h3>Email address</h3>
-              <Input
-                type="text"
-                name="email"
-                value={this.state.credentials.username}
-                onChange={this.handleChange}
-              />
-              <h3>Password</h3>
-              <Input
-                type="password"
-                name="password"
-                value={this.state.credentials.password}
-                onChange={this.handleChange}
-              />
-              <Button>Create an account</Button>
-            </FormDiv>
-          </form>
+          <FormDiv onSubmit={this.register}>
+            <h2>Create an account</h2>
+            <h3>Email address</h3>
+            <Input
+              type="text"
+              name="email"
+              value={this.state.credentials.email}
+              onChange={this.handleChange}
+            />
+            <h3>Password</h3>
+            <Input
+              type="password"
+              name="password"
+              value={this.state.credentials.password}
+              onChange={this.handleChange}
+            />
+            <Button>Create an account</Button>
+          </FormDiv>
         </LoginDiv>
       </WrapperDiv>
     );

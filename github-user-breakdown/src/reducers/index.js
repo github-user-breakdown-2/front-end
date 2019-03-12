@@ -1,99 +1,91 @@
-// Imported action creators
 import {
-    REGISTER_START,
-    REGISTER_SUCCESS,
-    REGISTER_FAIL,
-
     LOGIN_START,
     LOGIN_SUCCESS,
     LOGIN_FAIL,
 
+    REGISTER_START,
+    REGISTER_SUCCESS,
+    REGISTER_FAIL,
+    
     FETCH_USER_START,
     FETCH_USER_SUCCESS,
-    FETCH_USER_FAIL,
-
-} from '../actions'
-
-
-// Initial State
-const initialState = {
-    users: ['test'],
+    FETCH_USER_FAIL
+  } from "../actions";
+  
+  export const initialState = {
+    users: 
+    [{'user': 'zangell44',
+      'avatar': 'https://avatars0.githubusercontent.com/u/42625717?v=4',
+      'repo_count': 25
+    }],
+    fetching: false,
     registering: false,
     loggingIn: false,
-    fetching: false,
-    error: null,
     token: localStorage.getItem('token'),
-}
-
-
-const reducer = (state = initialState, action) => {
-    switch(action.type) {
-
-        // Register
-        case REGISTER_START:
+    error: null
+  };
+  
+  const reducer = (state = initialState, action) => {
+    switch (action.type) {
+      case REGISTER_START:
         return {
-            ...state,
-            error: null,
-            registering: true
-        }
-        case REGISTER_SUCCESS:
+          ...state,
+          error: null,
+          registering: true
+        };
+      case REGISTER_SUCCESS:
         return {
-            ...state,
-            registering: false,
-            token: action.payload
-        }
-        case REGISTER_FAIL:
+          ...state,
+          error: null,
+          token: action.payload,
+          registering: false
+        };
+      case REGISTER_FAIL:
         return {
-            ...state,
-            registering: false,
-            error: action.payload
-        }
-
-        // Login
-        case LOGIN_START:
+          ...state,
+          error: action.payload,
+          registering: false
+        };
+      case LOGIN_START:
         return {
-            ...state,
-            error: null,
-            loggingIn: true
-        }
-        case LOGIN_SUCCESS:
+          ...state,
+          error: null,
+          loggingIn: true
+        };
+      case LOGIN_SUCCESS:
         return {
-            ...state,
-            loggingIn: false,
-            token: action.payload
-        }
-        case LOGIN_FAIL:
+          ...state,
+          loggingIn: false,
+          token: action.payload
+        };
+      case LOGIN_FAIL:
         return {
-            ...state,
-            loggingIn: false,
-            error: action.payload
-        }
-
-        // Fetch data
+          ...state,
+          loggingIn: false,
+          error: action.payload
+        };
         case FETCH_USER_START:
         return {
-            ...state,
-            error: null,
-            fetching: true
+          ...state,
+          error: null,
+          fetching: true
         }
         case FETCH_USER_SUCCESS:
         return {
-            ...state,
-            error: null,
-            fetching: false,
-            users: action.payload
+          ...state,
+          error: null,
+          fetching: false,
+          users: action.payload
         }
         case FETCH_USER_FAIL:
         return {
-            ...state,
-            fetching: false,
-            error: action.payload
+          ...state,
+          fetching: false,
+          error: action.payload
         }
-
-        // Default
-        default:
-            return state;
+      default:
+        return state;
     }
-};
-
-export default reducer;
+  };
+  
+  export default reducer;
