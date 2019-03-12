@@ -1,7 +1,7 @@
 import React from "react";
 import Loader from "react-loader-spinner";
 import { connect } from "react-redux";
-import { login } from "../actions";
+import { login, register } from "../actions";
 import styled from "styled-components";
 
 const Wrapper = styled.div`
@@ -63,14 +63,14 @@ class LoginPage extends React.Component {
 
   register = e => {
     e.preventDefault();
-    this.props.register(this.state.credentials)
-  }
+    this.props.register(this.state.credentials);
+  };
 
   render() {
     return (
       <Wrapper>
         <h1>Login To GitHub Users</h1>
-        <form onSubmit={this.login}>
+        <form>
           <input
             type="text"
             name="email"
@@ -85,14 +85,16 @@ class LoginPage extends React.Component {
             onChange={this.handleChange}
             placeholder="password"
           />
-          <button>
+          <button onClick={this.login}>
             {this.props.loggingIn ? (
               <Loader type="ThreeDots" color="#1f2a38" height="12" width="26" />
             ) : (
               "Login"
             )}
           </button>
-          <button>Sign Up</button>
+          <button
+          onClick={this.register}
+          >Sign Up</button>
         </form>
       </Wrapper>
     );
@@ -106,5 +108,5 @@ const mapStateToProps = ({ error, loggingIn }) => ({
 
 export default connect(
   mapStateToProps,
-  { login }
+  { login, register }
 )(LoginPage);

@@ -4,11 +4,14 @@ import {
   LOGIN_FAIL,
   REGISTER_START,
   REGISTER_SUCCESS,
-  REGISTER_FAIL
+  REGISTER_FAIL,
+  FETCH_USER_START,
+  FETCH_USER_SUCCESS,
+  FETCH_USER_FAIL
 } from "../actions";
 
 export const initialState = {
-  data: "ITS WORKING",
+  users: [],
   fetching: false,
   registering: false,
   loggingIn: false,
@@ -54,6 +57,25 @@ const reducer = (state = initialState, action) => {
         loggingIn: false,
         error: action.payload
       };
+      case FETCH_USER_START:
+      return {
+        ...state,
+        error: null,
+        fetching: true
+      }
+      case FETCH_USER_SUCCESS:
+      return {
+        ...state,
+        error: null,
+        fetching: false,
+        users: action.payload
+      }
+      case FETCH_USER_FAIL:
+      return {
+        ...state,
+        fetching: false,
+        error: action.payload
+      }
     default:
       return state;
   }
