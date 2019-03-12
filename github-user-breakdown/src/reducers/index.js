@@ -8,12 +8,16 @@ import {
     LOGIN_SUCCESS,
     LOGIN_FAIL,
 
+    FETCH_USER_START,
+    FETCH_USER_SUCCESS,
+    FETCH_USER_FAIL,
+
 } from '../actions'
 
 
 // Initial State
 const initialState = {
-    data: ['test'],
+    users: ['test'],
     registering: false,
     loggingIn: false,
     fetching: false,
@@ -21,9 +25,11 @@ const initialState = {
     token: localStorage.getItem('token'),
 }
 
+
 const reducer = (state = initialState, action) => {
     switch(action.type) {
 
+        // Register
         case REGISTER_START:
         return {
             ...state,
@@ -43,6 +49,7 @@ const reducer = (state = initialState, action) => {
             error: action.payload
         }
 
+        // Login
         case LOGIN_START:
         return {
             ...state,
@@ -62,7 +69,28 @@ const reducer = (state = initialState, action) => {
             error: action.payload
         }
 
+        // Fetch data
+        case FETCH_USER_START:
+        return {
+            ...state,
+            error: null,
+            fetching: true
+        }
+        case FETCH_USER_SUCCESS:
+        return {
+            ...state,
+            error: null,
+            fetching: false,
+            users: action.payload
+        }
+        case FETCH_USER_FAIL:
+        return {
+            ...state,
+            fetching: false,
+            error: action.payload
+        }
 
+        // Default
         default:
             return state;
     }

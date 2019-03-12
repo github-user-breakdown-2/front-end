@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-// import { login } from '../actions';
+import { login, register } from '../actions';
 
 class LoginPage extends React.Component {
   state = {
@@ -19,12 +19,15 @@ class LoginPage extends React.Component {
     });
   };
 
-//   login = e => {
-//     e.preventDefault();
-//     this.props.login(this.state.credentials).then(() => {
-//       this.props.history.push('/friends-list');
-//     });
-//   };
+  login = e => {
+    e.preventDefault();
+    this.props.login(this.state.credentials)
+  };
+
+  register = e => {
+    e.preventDefault();
+    this.props.register(this.state.credentials)
+  };
 
   render() {
     return (
@@ -50,7 +53,7 @@ class LoginPage extends React.Component {
         </form>
 
         {/* Create account section */}
-        <form onSubmit={this.login}>
+        <form onSubmit={this.register}>
           <h1> Create an account </h1>
           <h3>Email address</h3>
           <input
@@ -75,7 +78,7 @@ class LoginPage extends React.Component {
 
 export default connect(
   null,
-  { }
+  { login, register }
 )(LoginPage);
 
 
