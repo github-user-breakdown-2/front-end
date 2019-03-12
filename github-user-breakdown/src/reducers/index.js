@@ -31,7 +31,8 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         error: null,
-        token: action.payload
+        token: action.payload,
+        registering: false
       };
     case REGISTER_FAIL:
       return {

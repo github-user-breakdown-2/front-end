@@ -5,12 +5,13 @@ import { login, register } from "../actions";
 import styled from "styled-components";
 
 const Wrapper = styled.div`
+  text-align: center;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   border: 2px solid black;
-  width: 400px;
+  max-width: 300px;
   margin: 20px auto;
   padding: 30px;
 
@@ -92,18 +93,23 @@ class LoginPage extends React.Component {
               "Login"
             )}
           </button>
-          <button
-          onClick={this.register}
-          >Sign Up</button>
+          <button onClick={this.register}>
+            {this.props.registering ? (
+              <Loader type="ThreeDots" color="#1f2a38" height="12" width="26" />
+            ) : (
+              "Sign Up"
+            )}
+          </button>
         </form>
       </Wrapper>
     );
   }
 }
 
-const mapStateToProps = ({ error, loggingIn }) => ({
+const mapStateToProps = ({ error, loggingIn, registering }) => ({
   error,
-  loggingIn
+  loggingIn,
+  registering
 });
 
 export default connect(
