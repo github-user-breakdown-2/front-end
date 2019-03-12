@@ -1,7 +1,45 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { login, register } from '../actions';
+import styled from 'styled-components';
 
+// ************* Styled components *************
+
+// main container
+const WrapperDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-content: center;
+`;
+
+// login / register container
+const LoginDiv = styled.div`
+  display: flex;
+  justify-content: center;
+  width: 300px; 
+  background: white;
+  margin-top: 20px;
+  border-radius: 3px;
+  text-align: center;
+`;
+
+const FormDiv = styled.form` 
+  width: 300px;
+  padding: 20px;
+`;
+ 
+
+const Button = styled.button`
+  width: 100%;
+`;
+
+const Input = styled.input`
+  width: 100%;
+  border-raidus: 5px;
+`;
+
+// ************* Login page *************
 class LoginPage extends React.Component {
   state = {
     credentials: {
@@ -31,47 +69,55 @@ class LoginPage extends React.Component {
 
   render() {
     return (
-      <div>
+      <WrapperDiv>
         {/* Sign in section */}
-        <form onSubmit={this.login}>
-          <h1> Sign in to Github-User-Breakdown </h1>
-          <h3>Email address</h3>
-          <input
-            type="text"
-            name="email"
-            value={this.state.credentials.username}
-            onChange={this.handleChange}
-          />
-          <h3>Password</h3>
-          <input
-            type="password"
-            name="password"
-            value={this.state.credentials.password}
-            onChange={this.handleChange}
-          />
-          <button>Sign in</button>
-        </form>
+        <LoginDiv>
+          <form onSubmit={this.login}>
+            <FormDiv>
+              <h2>Sign in</h2>
+              <h3>Email address</h3>
+              <Input
+                type="text"
+                name="email"
+                value={this.state.credentials.username}
+                onChange={this.handleChange}
+              />
+              <h3>Password</h3>
+              <Input
+                type="password"
+                name="password"
+                value={this.state.credentials.password}
+                onChange={this.handleChange}
+              />
+              <Button>Sign in</Button>
+            </FormDiv>
+          </form>
+        </LoginDiv>
 
         {/* Create account section */}
-        <form onSubmit={this.register}>
-          <h1> Create an account </h1>
-          <h3>Email address</h3>
-          <input
-            type="text"
-            name="email"
-            value={this.state.credentials.username}
-            onChange={this.handleChange}
-          />
-          <h3>Password</h3>
-          <input
-            type="password"
-            name="password"
-            value={this.state.credentials.password}
-            onChange={this.handleChange}
-          />
-          <button>Create an account</button>
-        </form>
-      </div>
+        <LoginDiv>
+          <form onSubmit={this.register}>
+            <FormDiv>
+              <h2>Create an account</h2>
+              <h3>Email address</h3>
+              <Input
+                type="text"
+                name="email"
+                value={this.state.credentials.username}
+                onChange={this.handleChange}
+              />
+              <h3>Password</h3>
+              <Input
+                type="password"
+                name="password"
+                value={this.state.credentials.password}
+                onChange={this.handleChange}
+              />
+              <Button>Create an account</Button>
+            </FormDiv>
+          </form>
+        </LoginDiv>
+      </WrapperDiv>
     );
   }
 }

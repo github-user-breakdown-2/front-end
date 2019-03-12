@@ -6,6 +6,7 @@ import thunk from 'redux-thunk';
 import reducer from './reducers';
 import App from './App';
 import logger from 'redux-logger';
+import './index.css';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(
