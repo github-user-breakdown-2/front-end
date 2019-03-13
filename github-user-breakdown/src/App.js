@@ -9,7 +9,7 @@ class App extends Component {
     return (
       <Router>
         <div className="App">
-          <Route path="/" component={LoginPage} />
+          <Route exact path="/" component={LoginPage} />
           <PrivateRoute exact path="/github-users" component={GithubUsers} />
         </div>
       </Router>

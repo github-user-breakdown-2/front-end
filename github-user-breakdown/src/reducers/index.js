@@ -15,7 +15,7 @@ export const initialState = {
   fetching: false,
   registering: false,
   loggingIn: false,
-  token: localStorage.getItem('token'),
+  token: localStorage.getItem("token"),
   error: null
 };
 
@@ -58,25 +58,25 @@ const reducer = (state = initialState, action) => {
         loggingIn: false,
         error: action.payload
       };
-      case FETCH_USER_START:
+    case FETCH_USER_START:
       return {
         ...state,
         error: null,
         fetching: true
-      }
-      case FETCH_USER_SUCCESS:
+      };
+    case FETCH_USER_SUCCESS:
       return {
         ...state,
         error: null,
         fetching: false,
-        users: action.payload
-      }
-      case FETCH_USER_FAIL:
+        users: [...state.users, action.payload]
+      };
+    case FETCH_USER_FAIL:
       return {
         ...state,
         fetching: false,
         error: action.payload
-      }
+      };
     default:
       return state;
   }
