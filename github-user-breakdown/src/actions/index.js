@@ -20,9 +20,7 @@ export const login = creds => dispatch => {
     .catch(err => dispatch({ type: LOGIN_FAIL, payload: err.response.data }));
 };
 
-//
-//
-// REGISTER
+// REGISTER FOR LOGIN
 
 export const REGISTER_START = "REGISTER_START";
 export const REGISTER_SUCCESS = "REGISTER_SUCCESS";
@@ -38,21 +36,69 @@ export const register = creds => dispatch => {
     );
 };
 
-//
-// GET DATA
+// GET SIMPLE USER DATA
 
-export const FETCH_USER_START = "FETCH_START";
-export const FETCH_USER_SUCCESS = "FETCH_SUCCESS";
-export const FETCH_USER_FAIL = "FETCH_FAIL";
+export const FETCH_USER_START = "FETCH_USER_START";
+export const FETCH_USER_SUCCESS = "FETCH_USER_SUCCESS";
+export const FETCH_USER_FAIL = "FETCH_USER_FAIL";
 
 export const getUserData = user => dispatch => {
   dispatch({ type: FETCH_USER_START });
-  // user = {username: user}
   console.log(user);
-  axios.get(`https://api.github.com/search/users?q=${user}`)
-    .then(res => dispatch({ type: FETCH_USER_SUCCESS, payload: res.data.items.filter(u => u.login === user)}))
-    .catch(err => dispatch({ type: FETCH_USER_FAIL, payload: err.response}));
+  axios
+    .get(`https://api.github.com/search/users?q=${user}`)
+    .then(res =>
+      dispatch({
+        type: FETCH_USER_SUCCESS,
+        payload: res.data.items.filter(u => u.login === user)
+      })
+    )
+    .catch(err => dispatch({ type: FETCH_USER_FAIL, payload: err.response }));
 };
+
+//GET USER SUMMARY DATA
+export const FETCH_SUMMARY_START = "FETCH_SUMMARY_START";
+export const FETCH_SUMMARY_SUCCESS = "FETCH_SUMMARY_SUCCESS";
+export const FETCH_SUMMARY_FAIL = "FETCH_SUMMARY_FAIL";
+
+export const getUserSummary = user => dispatch => {
+  dispatch({ type: FETCH_SUMMARY_START });
+  console.log(user);
+  axios
+    .get(`${apiDomain}/api/app/githubusers/summary/${user}`)
+    .then(res => console.log(res))
+    .catch(err => dispatch({ type: FETCH_SUMMARY_FAIL, payload: err.response }));
+};
+
+//GET DETAILED DATA
+export const FETCH_DETAILS_START = "FETCH_DETAILS_START";
+export const FETCH_DETAILS_SUCCESS = "FETCH_DETAILS_SUCCESS";
+export const FETCH_DETAILS_FAIL = "FETCH_DETAILS_FAIL";
+
+export const getUserDetailed = user => dispatch => {
+  dispatch({ type: FETCH_DETAILS_START });
+  console.log(user);
+  axios
+    .get(`${apiDomain}/api/app/githubusers/detailed`)
+    .then(res => console.log(res))
+    .catch(err => console.log(err.response));
+};
+
+//DELETE USER CARD
+
+export const DELETE_USER = "DELETE_USER";
+
+export const deleteUser = id => {
+  return {
+    type: DELETE_USER,
+    payload: id
+  };
+};
+
+//SAVED CODE SNIPPETS
+
+//console.log(res.data.items[0])
+//dispatch({ type: FETCH_USER_SUCCESS, payload: res.data.items[0]})
 
 //{dispatch({ type: FETCH_USER_SUCCESS, payload: res.data }})
 //{dispatch({ type: FETCH_USER_FAIL, payload: err.response });}
@@ -66,25 +112,3 @@ export const getUserData = user => dispatch => {
 
 // const users = await axios.get(`https://api.github.com/search/users?q=${user}`);
 // const usersCompressed = users.data.items.map(user => (user = user.login));
-
-
-// export const DELETE_USER_START = "DELETE_USER_START";
-// export const DELETE_USER_SUCCESS = "DELETE_USER_SUCCESS";
-// export const DELETE_USER_FAIL = "DELETE_USER_FAIL";
-
-// export const deleteUser = id => dispatch => {
-//   dispatch({ type: DELETE_USER_START });
-//   axios
-//   .delete(`${apiDomain}/users/${id}`)
-//   .then(res => dispatch({ type: DELETE_USER_SUCCESS, payload: res.data}))
-//   .catch(err => dispatch({ type: DELETE_USER_FAIL, payload: err}))
-// }
-
-export const DELETE_USER = 'DELETE_USER'
-
-export const deleteUser = id => {
- return {
-   type: DELETE_USER,
-   payload: id
- }
-}

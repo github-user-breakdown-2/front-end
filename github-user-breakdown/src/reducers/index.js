@@ -8,7 +8,8 @@ import {
   FETCH_USER_START,
   FETCH_USER_SUCCESS,
   FETCH_USER_FAIL,
-  DELETE_USER
+  DELETE_USER,
+  FETCH_SUMMARY_START
 } from "../actions";
 
 export const initialState = {
@@ -70,7 +71,7 @@ const reducer = (state = initialState, action) => {
         ...state,
         error: null,
         fetching: false,
-        users: [...state.users, action.payload]
+        users: [...state.users, ...action.payload]
       };
     case FETCH_USER_FAIL:
       return {
@@ -78,12 +79,18 @@ const reducer = (state = initialState, action) => {
         fetching: false,
         error: action.payload
       };
+      case FETCH_SUMMARY_START:
+      return {
+        ...state,
+        fetching: true,
+        error: null
+      }
     case DELETE_USER:
       return {
         ...state,
         //users: state.users.filter(user => user.id !== action.payload)
         //users: state.users.map(array => array.filter(user => user.id !== action.payload))
-        users: state.users.filter(array => array[0].id !== action.payload)
+        users: state.users.filter(user => user.id !== action.payload)
       };
     default:
       return state;

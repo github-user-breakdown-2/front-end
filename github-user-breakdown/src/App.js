@@ -3,6 +3,7 @@ import GithubUsers from "./components/GithubUsers";
 import { BrowserRouter as Router, Route} from "react-router-dom";
 import PrivateRoute from "./components/PrivateRoute";
 import LoginPage from "./auth/LoginPage";
+import User from './components/User'
 
 class App extends Component {
   render() {
@@ -10,7 +11,8 @@ class App extends Component {
       <Router>
         <div className="App">
           <Route exact path="/" component={LoginPage} />
-          <PrivateRoute exact path="/github-users" component={GithubUsers} />
+          <PrivateRoute path='/github-users/:login' component={User}/>
+          <PrivateRoute exact path="/github-users/" component={GithubUsers} />
         </div>
       </Router>
     );
