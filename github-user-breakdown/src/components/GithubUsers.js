@@ -1,7 +1,8 @@
 import React from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
-import { getUserData } from "../actions";
+import { getUserData, deleteUser } from "../actions";
+import { Link } from 'react-router-dom'
 
 const Wrapper = styled.div`
   text-align: center;
@@ -50,6 +51,11 @@ class GithubUsers extends React.Component {
     user: ""
   };
 
+  deleteUser = (e,id) => {
+    e.preventDefault();
+    this.props.deleteUser(id)
+  }
+
   handleChange = e => {
     this.setState({ [e.target.name]: e.target.value });
   };
@@ -76,11 +82,11 @@ class GithubUsers extends React.Component {
         </Wrapper>
         <>
           {this.props.users.map(user =>
-            user.map(user => (
-              <UserCard key={user.id}>
-                <button> X </button>
-                <div> {user.login} </div>
-                <img src={user.avatar_url} alt="" />
+            user.map(u => (
+              <UserCard key={u.id}>
+                <button onClick={e => this.deleteUser(e, u.id)}> X </button>
+                <div> {u.login} </div>
+                <img src={u.avatar_url} alt="" />
               </UserCard>
             ))
           )}
@@ -96,5 +102,5 @@ const mapStateToProps = ({ users }) => ({
 
 export default connect(
   mapStateToProps,
-  { getUserData }
+  { getUserData, deleteUser }
 )(GithubUsers);

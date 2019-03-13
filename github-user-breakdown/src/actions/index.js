@@ -68,14 +68,23 @@ export const getUserData = user => dispatch => {
 // const usersCompressed = users.data.items.map(user => (user = user.login));
 
 
-export const DELETE_USER_START = "DELETE_USER_START";
-export const DELETE_USER_SUCCESS = "DELETE_USER_SUCCESS";
-export const DELETE_USER_FAIL = "DELETE_USER_FAIL";
+// export const DELETE_USER_START = "DELETE_USER_START";
+// export const DELETE_USER_SUCCESS = "DELETE_USER_SUCCESS";
+// export const DELETE_USER_FAIL = "DELETE_USER_FAIL";
 
-export const deleteUser = id => dispatch => {
-  dispatch({ type: DELETE_USER_START });
-  axios
-  .delete(`${apiDomain}/users/${id}`)
-  .then(res => dispatch({ type: DELETE_USER_SUCCESS, payload: res.data}))
-  .catch(err => dispatch({ type: DELETE_USER_FAIL, payload: err}))
+// export const deleteUser = id => dispatch => {
+//   dispatch({ type: DELETE_USER_START });
+//   axios
+//   .delete(`${apiDomain}/users/${id}`)
+//   .then(res => dispatch({ type: DELETE_USER_SUCCESS, payload: res.data}))
+//   .catch(err => dispatch({ type: DELETE_USER_FAIL, payload: err}))
+// }
+
+export const DELETE_USER = 'DELETE_USER'
+
+export const deleteUser = id => {
+ return {
+   type: DELETE_USER,
+   payload: id
+ }
 }

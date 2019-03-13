@@ -7,7 +7,8 @@ import {
   REGISTER_FAIL,
   FETCH_USER_START,
   FETCH_USER_SUCCESS,
-  FETCH_USER_FAIL
+  FETCH_USER_FAIL,
+  DELETE_USER
 } from "../actions";
 
 export const initialState = {
@@ -76,6 +77,13 @@ const reducer = (state = initialState, action) => {
         ...state,
         fetching: false,
         error: action.payload
+      };
+    case DELETE_USER:
+      return {
+        ...state,
+        //users: state.users.filter(user => user.id !== action.payload)
+        //users: state.users.map(array => array.filter(user => user.id !== action.payload))
+        users: state.users.filter(array => array[0].id !== action.payload)
       };
     default:
       return state;
