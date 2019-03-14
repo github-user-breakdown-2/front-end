@@ -14,16 +14,13 @@ const Wrapper = styled.div`
   max-width: 300px;
   margin: 20px auto;
   padding: 30px;
-
   form {
     display: flex;
     flex-direction: column;
-
     input {
       margin: 10px 0;
       font-size: 18px;
     }
-
     button {
       margin: 10px 0;
       border: none;
@@ -117,5 +114,5 @@ const mapStateToProps = ({ error, loggingIn, registering }) => ({
 
 export default connect(
   mapStateToProps,
-  { login, register }
-)(LoginPage);
+  { login, register })(LoginPage);
+

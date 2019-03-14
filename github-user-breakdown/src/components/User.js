@@ -16,7 +16,6 @@ const UserWrapper = styled.div`
   margin: 20px auto;
   display: flex;
   flex-direction: column;
-
   img {
     max-width: 200px;
   }

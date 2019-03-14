@@ -22,12 +22,10 @@ const FormWrapper = styled.div`
   form {
     display: flex;
     flex-direction: column;
-
     input {
       margin: 10px 0;
       font-size: 18px;
     }
-
     button {
       margin: 10px 0;
       border: none;
@@ -44,7 +42,6 @@ const UserCard = styled.div`
   justify-content: center;
   align-items: center;
   padding: 10px;
-
   button {
     border: none;
     background-color: #5933f0;
@@ -59,7 +56,6 @@ const UserCard = styled.div`
       background-color: red;
     }
   }
-
   img {
     max-width: 100px;
     border-radius: 50%;
@@ -72,7 +68,6 @@ const UserCardsContainer = styled.div`
   padding: 20px;
   display: flex;
   flex-wrap: wrap;
-
   a {
     width: 180px;
     border: 2px solid black;
@@ -166,3 +161,5 @@ export default connect(
 //     </Link>
 //   ))
 // )}
+
+
