@@ -1,50 +1,40 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { login, register } from '../actions';
-import styled from 'styled-components';
+import React from "react";
+import Loader from "react-loader-spinner";
+import { connect } from "react-redux";
+import { login, register } from "../actions";
+import styled from "styled-components";
 
-// ************* Styled components *************
-
-// main container
-const WrapperDiv = styled.div`
+const Wrapper = styled.div`
+  text-align: center;
   display: flex;
   flex-direction: column;
-  flex-wrap: wrap;
-  align-content: center;
-`;
-
-// login / register container
-const LoginDiv = styled.div`
-  display: flex;
   justify-content: center;
-  width: 300px; 
-  background: white;
-  margin-top: 20px;
-  border-radius: 3px;
-  text-align: center;
+  align-items: center;
+  border: 2px solid black;
+  max-width: 300px;
+  margin: 20px auto;
+  padding: 30px;
+  form {
+    display: flex;
+    flex-direction: column;
+    input {
+      margin: 10px 0;
+      font-size: 18px;
+    }
+    button {
+      margin: 10px 0;
+      border: none;
+      background-color: #9f86ff;
+      cursor: pointer;
+    }
+  }
 `;
 
-const FormDiv = styled.form` 
-  width: 300px;
-  padding: 20px;
-`;
- 
-
-const Button = styled.button`
-  width: 100%;
-`;
-
-const Input = styled.input`
-  width: 100%;
-  border-raidus: 5px;
-`;
-
-// ************* Login page *************
 class LoginPage extends React.Component {
   state = {
     credentials: {
-      email: '',
-      password: ''
+      email: "",
+      password: ""
     }
   };
 
@@ -57,73 +47,72 @@ class LoginPage extends React.Component {
     });
   };
 
+  // login = e => {
+  //   e.preventDefault();
+  //   this.props.login(this.state.credentials).then(() => {
+  //     this.props.history.push("/github-users");
+  //   });
+  // };
+
   login = e => {
     e.preventDefault();
-    this.props.login(this.state.credentials)
-    this.props.history.push('/github-users')
+    this.props
+    .login(this.state.credentials);
+    setTimeout(() => this.props.history.push('/github-users'), 1000);
+    
   };
 
   register = e => {
     e.preventDefault();
-    this.props.register(this.state.credentials)
+    this.props.register(this.state.credentials);
   };
 
   render() {
     return (
-      <WrapperDiv>
-
-        {/* SIGN IN */}
-        <LoginDiv>
-          <FormDiv onSubmit={this.login}>
-            <h2>Sign in</h2>
-            <h3>Email address</h3>
-            <Input
-              type="text"
-              name="email"
-              value={this.state.credentials.email}
-              onChange={this.handleChange}
-            />
-            <h3>Password</h3>
-            <Input
-              type="password"
-              name="password"
-              value={this.state.credentials.password}
-              onChange={this.handleChange}
-            />
-            <Button>Sign in</Button>
-          </FormDiv>
-        </LoginDiv>
-
-        {/* REGISTER */}
-        <LoginDiv>
-          <FormDiv onSubmit={this.register}>
-            <h2>Create an account</h2>
-            <h3>Email address</h3>
-            <Input
-              type="text"
-              name="email"
-              value={this.state.credentials.email}
-              onChange={this.handleChange}
-            />
-            <h3>Password</h3>
-            <Input
-              type="password"
-              name="password"
-              value={this.state.credentials.password}
-              onChange={this.handleChange}
-            />
-            <Button>Create an account</Button>
-          </FormDiv>
-        </LoginDiv>
-      </WrapperDiv>
+      <Wrapper>
+        <h1>Login To GitHub Users</h1>
+        <form>
+          <input
+            type="text"
+            name="email"
+            value={this.state.credentials.email}
+            onChange={this.handleChange}
+            placeholder="email"
+          />
+          <input
+            type="password"
+            name="password"
+            value={this.state.credentials.password}
+            onChange={this.handleChange}
+            placeholder="password"
+          />
+          <button onClick={this.login}>
+            {this.props.loggingIn ? (
+              <Loader type="ThreeDots" color="#1f2a38" height="12" width="26" />
+            ) : (
+              "Login"
+            )}
+          </button>
+          <button onClick={this.register}>
+            {this.props.registering ? (
+              <Loader type="ThreeDots" color="#1f2a38" height="12" width="26" />
+            ) : (
+              "Sign Up"
+            )}
+          </button>
+        </form>
+      </Wrapper>
     );
   }
 }
 
+const mapStateToProps = ({ error, loggingIn, registering }) => ({
+  error,
+  loggingIn,
+  registering
+});
+
 export default connect(
-  null,
+  mapStateToProps,
   { login, register }
 )(LoginPage);
-
-
-

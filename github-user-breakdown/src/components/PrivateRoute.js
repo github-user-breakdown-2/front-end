@@ -11,7 +11,7 @@ const PrivateRoute = ({
     return (
         <Route
             {...rest}
-            render = {props => 
+            render = {props =>
                 token && errorStatusCode !== 403 ? (
                     <Component {...props} />
                     ) : (
