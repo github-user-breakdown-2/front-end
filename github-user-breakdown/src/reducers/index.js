@@ -78,7 +78,7 @@ const reducer = (state = initialState, action) => {
         ...state,
         error: null,
         fetching: false,
-        users: [...state.users, ...action.payload]
+        users: [...state.users, action.payload]
       };
     case FETCH_USER_FAIL:
       return {
@@ -130,7 +130,7 @@ const reducer = (state = initialState, action) => {
         ...state,
         //users: state.users.filter(user => user.id !== action.payload)
         //users: state.users.map(array => array.filter(user => user.id !== action.payload))
-        users: state.users.filter(user => user.id !== action.payload)
+        users: state.users.filter(user => user.user !== action.payload)
       };
     default:
       return state;

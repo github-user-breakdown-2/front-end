@@ -1,7 +1,18 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { getUserSummary, getUserDetailed } from "../actions";
+import {
+  XYPlot,
+  LineSeries,
+  VerticalGridLines,
+  HorizontalGridLines,
+  XAxis,
+  YAxis,
+  RadialChart
+} from "react-vis";
 import styled from "styled-components";
+
+const myData = [{ angle: 1 }, { angle: 5 }, { angle: 2 }, { angle: 10 }];
 
 const UserWrapper = styled.div`
   max-width: 400px;
@@ -19,34 +30,37 @@ const Languages = styled.div`
 `;
 
 const User = props => {
-  const { login } = props.match.params;
-  let user = props.users.filter(user => user.login === login)[0];
+  const username = props.match.params.user;
+  let user = props.users.filter(user => user.user === username)[0];
 
   useEffect(() => {
-    props.getUserSummary(login);
-    props.getUserDetailed(login);
+    props.getUserSummary(username);
+    props.getUserDetailed(username);
   }, []);
 
-  
-  
+  if (props.summary.languages) {var x = (Object.entries(props.summary.languages))}
   return (
     <>
       <UserWrapper>
-        {user.login}
-        <img src={user.avatar_url} alt="" />
+        {user.user}
+        <img src={user.avatar} alt="" />
       </UserWrapper>
+
+      {/* <RadialChart data={myData} width={300} height={300} /> */}
 
       {props.summary.length === 0 ? (
         <div> Loading.. </div>
       ) : (
         <Languages>
           REPOS USING
-          <hr/>
+          {/* <hr />
           HTML: {props.summary.languages.HTML}
-          <hr/>
+          <hr />
           CSS: {props.summary.languages.CSS}
+          <hr />
+          JAVASCRIPT: {props.summary.languages.JavaScript} */}
           <hr/>
-          JAVASCRIPT: {props.summary.languages.JavaScript}
+          {x}
         </Languages>
       )}
     </>

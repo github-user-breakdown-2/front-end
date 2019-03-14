@@ -11,7 +11,7 @@ class App extends Component {
       <Router>
         <div className="App">
           <Route exact path="/" component={LoginPage} />
-          <PrivateRoute path='/github-users/:login' component={User}/>
+          <PrivateRoute path='/github-users/:user' component={User}/>
           <PrivateRoute exact path="/github-users/" component={GithubUsers} />
         </div>
       </Router>

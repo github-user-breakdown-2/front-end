@@ -44,17 +44,25 @@ export const FETCH_USER_FAIL = "FETCH_USER_FAIL";
 
 export const getUserData = user => dispatch => {
   dispatch({ type: FETCH_USER_START });
-  console.log(user);
-  axios
-    .get(`https://api.github.com/search/users?q=${user}`)
-    .then(res =>
-      dispatch({
-        type: FETCH_USER_SUCCESS,
-        payload: res.data.items.filter(u => u.login === user)
+  axios.get(`https://github-user-breakdown-app.herokuapp.com/api/app/githubusers/summary/${user}`)
+    .then(res => {
+        dispatch({ type: FETCH_USER_SUCCESS, payload: res.data })
       })
-    )
-    .catch(err => dispatch({ type: FETCH_USER_FAIL, payload: err.response }));
+    .catch(err => console.log(err.response));
 };
+// export const getUserData = user => dispatch => {
+//   dispatch({ type: FETCH_USER_START });
+//   console.log(user);
+//   axios
+//     .get(`https://api.github.com/search/users?q=${user}`)
+//     .then(res =>
+//       dispatch({
+//         type: FETCH_USER_SUCCESS,
+//         payload: res.data.items.filter(u => u.login === user)
+//       })
+//     )
+//     .catch(err => dispatch({ type: FETCH_USER_FAIL, payload: err.response }));
+// };
 
 //GET USER SUMMARY DATA
 export const FETCH_SUMMARY_START = "FETCH_SUMMARY_START";
@@ -66,8 +74,10 @@ export const getUserSummary = user => dispatch => {
   console.log(user);
   axios
     .get(`${apiDomain}/api/app/githubusers/summary/${user}`)
-    .then(res => dispatch({ type: FETCH_SUMMARY_SUCCESS, payload: res.data}))
-    .catch(err => dispatch({ type: FETCH_SUMMARY_FAIL, payload: err.response }));
+    .then(res => dispatch({ type: FETCH_SUMMARY_SUCCESS, payload: res.data }))
+    .catch(err =>
+      dispatch({ type: FETCH_SUMMARY_FAIL, payload: err.response })
+    );
 };
 
 //GET DETAILED DATA
@@ -77,11 +87,12 @@ export const FETCH_DETAILS_FAIL = "FETCH_DETAILS_FAIL";
 
 export const getUserDetailed = user => dispatch => {
   dispatch({ type: FETCH_DETAILS_START });
-  console.log(user);
   axios
     .get(`${apiDomain}/api/app/githubusers/detailed/${user}`)
-    .then(res => dispatch({ type: FETCH_DETAILS_SUCCESS, payload: res.data}))
-    .catch(err => dispatch({ type: FETCH_DETAILS_FAIL, payload: err.response }));
+    .then(res => dispatch({ type: FETCH_DETAILS_SUCCESS, payload: res.data }))
+    .catch(err =>
+      dispatch({ type: FETCH_DETAILS_FAIL, payload: err.response })
+    );
 };
 
 //DELETE USER CARD

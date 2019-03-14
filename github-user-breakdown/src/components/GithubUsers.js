@@ -97,9 +97,9 @@ class GithubUsers extends React.Component {
     user: ""
   };
 
-  deleteUser = (e, id) => {
+  deleteUser = (e, user) => {
     e.preventDefault();
-    this.props.deleteUser(id);
+    this.props.deleteUser(user);
   };
 
   handleChange = e => {
@@ -128,11 +128,14 @@ class GithubUsers extends React.Component {
         </FormWrapper>
         <UserCardsContainer>
           {this.props.users.map(user => (
-            <Link to={`/github-users/${user.login}`} key={user.id}>
+            <Link to={`/github-users/${user.user}`} key={user.user}>
               <UserCard>
-                <button onClick={e => this.deleteUser(e, user.id)}> X </button>
-                <div> {user.login} </div>
-                <img src={user.avatar_url} alt="" />
+                <button onClick={e => this.deleteUser(e, user.user)}>
+                  X
+                </button>
+                <div> {user.user} </div>
+                <img src={user.avatar} alt="" />
+                <div>Repo Count: {user.repo_count} </div>
               </UserCard>
             </Link>
           ))}
@@ -142,8 +145,9 @@ class GithubUsers extends React.Component {
   }
 }
 
-const mapStateToProps = ({ users }) => ({
-  users
+const mapStateToProps = state => ({
+  users: state.users,
+  summary: state.userSummary
 });
 
 export default connect(
