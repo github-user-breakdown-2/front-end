@@ -2,14 +2,9 @@ import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { getUserSummary, getUserDetailed } from "../actions";
 import styled from "styled-components";
-import { VictoryPie, VictoryChart, VictoryBar } from "victory";
+import { VictoryPie } from "victory";
 import Hours from "./Hours";
 import Days from "./Days";
-
-const DaysBarGraph = styled.div`
-  width: 500px;
-  height: auto;
-`;
 
 const UserWrapper = styled.div`
   max-width: 400px;
