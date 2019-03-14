@@ -4,6 +4,8 @@ import styled from "styled-components";
 import { getUserData, deleteUser } from "../actions";
 import { Link } from "react-router-dom";
 
+const PageWrapper = styled.div``;
+
 const FormWrapper = styled.div`
   text-align: center;
   display: flex;
@@ -15,6 +17,7 @@ const FormWrapper = styled.div`
   margin: 20px auto;
   padding: 30px;
   border-radius: 3px;
+  background-color: #f8f8f8;
 
   form {
     display: flex;
@@ -35,18 +38,26 @@ const FormWrapper = styled.div`
 `;
 
 const UserCard = styled.div`
-  max-width: 200px;
-  border: 2px solid black;
-  border-radius: 3px;
-  margin: 10px;
-  padding: 20px;
-  max-height: 200px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
 
   button {
     border: none;
     background-color: #5933f0;
     color: #f8f8f8;
     cursor: pointer;
+    height: 20px;
+    width: 20px;
+    position: relative;
+    left: -75px;
+
+    &:hover {
+      background-color: red;
+    }
   }
 
   img {
@@ -60,9 +71,24 @@ const UserCardsContainer = styled.div`
   margin: 10px;
   padding: 20px;
   display: flex;
+  flex-wrap: wrap;
 
   a {
-    max-width: 200px;
+    width: 180px;
+    border: 2px solid black;
+    border-radius: 10px;
+    margin: 10px;
+    font-size: 18px;
+    text-decoration: none;
+    color: black;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    &:hover {
+      box-shadow: 0 2px 10px black;
+    }
   }
 `;
 
@@ -87,7 +113,7 @@ class GithubUsers extends React.Component {
 
   render() {
     return (
-      <>
+      <PageWrapper>
         <FormWrapper>
           <form onSubmit={this.handleSubmit}>
             <input
@@ -111,7 +137,7 @@ class GithubUsers extends React.Component {
             </Link>
           ))}
         </UserCardsContainer>
-      </>
+      </PageWrapper>
     );
   }
 }

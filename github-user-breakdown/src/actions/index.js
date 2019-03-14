@@ -66,7 +66,7 @@ export const getUserSummary = user => dispatch => {
   console.log(user);
   axios
     .get(`${apiDomain}/api/app/githubusers/summary/${user}`)
-    .then(res => console.log(res))
+    .then(res => dispatch({ type: FETCH_SUMMARY_SUCCESS, payload: res.data}))
     .catch(err => dispatch({ type: FETCH_SUMMARY_FAIL, payload: err.response }));
 };
 
@@ -79,9 +79,9 @@ export const getUserDetailed = user => dispatch => {
   dispatch({ type: FETCH_DETAILS_START });
   console.log(user);
   axios
-    .get(`${apiDomain}/api/app/githubusers/detailed`)
-    .then(res => console.log(res))
-    .catch(err => console.log(err.response));
+    .get(`${apiDomain}/api/app/githubusers/detailed/${user}`)
+    .then(res => dispatch({ type: FETCH_DETAILS_SUCCESS, payload: res.data}))
+    .catch(err => dispatch({ type: FETCH_DETAILS_FAIL, payload: err.response }));
 };
 
 //DELETE USER CARD

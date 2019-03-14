@@ -9,11 +9,18 @@ import {
   FETCH_USER_SUCCESS,
   FETCH_USER_FAIL,
   DELETE_USER,
-  FETCH_SUMMARY_START
+  FETCH_SUMMARY_START,
+  FETCH_SUMMARY_SUCCESS,
+  FETCH_SUMMARY_FAIL,
+  FETCH_DETAILS_START,
+  FETCH_DETAILS_SUCCESS,
+  FETCH_DETAILS_FAIL
 } from "../actions";
 
 export const initialState = {
   users: [],
+  userSummary: [],
+  userDetailed: [],
   fetching: false,
   registering: false,
   loggingIn: false,
@@ -82,8 +89,41 @@ const reducer = (state = initialState, action) => {
       case FETCH_SUMMARY_START:
       return {
         ...state,
+        userSummary: [],
         fetching: true,
         error: null
+      };
+      case FETCH_SUMMARY_SUCCESS:
+      return {
+        ...state,
+        fetching: false,
+        userSummary: action.payload,
+        error: null
+      };
+      case FETCH_SUMMARY_FAIL:
+      return {
+        ...state,
+        fetching: false,
+        error: action.payload
+      };
+      case FETCH_DETAILS_START:
+      return {
+        ...state,
+        fetching: true,
+        error: null
+      };
+      case FETCH_DETAILS_SUCCESS:
+      return {
+        ...state,
+        fetching: false,
+        userDetailed: action.payload,
+        error: null
+      };
+      case FETCH_DETAILS_FAIL:
+      return {
+        ...state,
+        fetching: false,
+        error: action.payload
       }
     case DELETE_USER:
       return {

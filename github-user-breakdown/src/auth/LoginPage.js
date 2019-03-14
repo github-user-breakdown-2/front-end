@@ -61,7 +61,8 @@ class LoginPage extends React.Component {
     e.preventDefault();
     this.props
     .login(this.state.credentials);
-    this.props.history.push('/github-users');
+    setTimeout(() => this.props.history.push('/github-users'), 1000);
+    
   };
 
   register = e => {
