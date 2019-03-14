@@ -7,17 +7,21 @@ import {
     REGISTER_SUCCESS,
     REGISTER_FAIL,
     
-    FETCH_USER_START,
-    FETCH_USER_SUCCESS,
-    FETCH_USER_FAIL
+    FETCH_SUMMARY_START,
+    FETCH_SUMMARY_SUCCESS,
+    FETCH_SUMMARY_FAIL,
+
+    FETCH_DETAILED_START,
+    FETCH_DETAILED_SUCCESS,
+    FETCH_DETAILED_FAIL,
+
+    DELETE_USER,
   } from "../actions";
   
   export const initialState = {
-    users: 
-    [{'user': 'zangell44',
-      'avatar': 'https://avatars0.githubusercontent.com/u/42625717?v=4',
-      'repo_count': 25
-    }],
+    users: [],
+    userDetailed: [],
+    userSummary: [],
     fetching: false,
     registering: false,
     loggingIn: false,
@@ -27,6 +31,9 @@ import {
   
   const reducer = (state = initialState, action) => {
     switch (action.type) {
+      
+      // REGISTER 
+
       case REGISTER_START:
         return {
           ...state,
@@ -46,6 +53,10 @@ import {
           error: action.payload,
           registering: false
         };
+
+
+      // LOGIN
+
       case LOGIN_START:
         return {
           ...state,
@@ -64,28 +75,67 @@ import {
           loggingIn: false,
           error: action.payload
         };
-        case FETCH_USER_START:
+
+
+      // FETCH SUMMARY DATA
+
+      case FETCH_SUMMARY_START:
         return {
           ...state,
           error: null,
           fetching: true
         }
-        case FETCH_USER_SUCCESS:
+      case FETCH_SUMMARY_SUCCESS:
         return {
           ...state,
           error: null,
           fetching: false,
-          users: action.payload
+          users: [...state.users, action.payload]
         }
-        case FETCH_USER_FAIL:
+      case FETCH_SUMMARY_FAIL:
         return {
           ...state,
           fetching: false,
           error: action.payload
         }
+
+
+      // DELETE
+
+      case DELETE_USER:
+        return {
+          ...state,
+          users: state.users.filter(user => user.user !== action.payload)
+        };
+
+
+      // FETCH DETAILED DATA  
+
+      case FETCH_DETAILED_START:
+        return {
+          ...state,
+          error: null,
+          fetching: true
+        }
+      case FETCH_DETAILED_SUCCESS:
+        return {
+          ...state,
+          error: null,
+          fetching: false,
+          userDetailed: action.payload
+        }
+      case FETCH_DETAILED_FAIL:
+        return {
+          ...state,
+          fetching: false,
+          error: action.payload
+        }
+
       default:
         return state;
     }
   };
+
+  
   
   export default reducer;

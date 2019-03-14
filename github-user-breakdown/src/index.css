@@ -59,7 +59,8 @@ table {
 html, body {
   height: 100%;
   font-size: 62.5%;
-  background: #2f323a;
+  background: white;
+  /* #2f323a; */
 }
 
 /* h1 - h5 */

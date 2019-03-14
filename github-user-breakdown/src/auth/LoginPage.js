@@ -71,7 +71,8 @@ class LoginPage extends React.Component {
   render() {
     return (
       <WrapperDiv>
-        {/* Sign in section */}
+
+        {/* SIGN IN */}
         <LoginDiv>
           <FormDiv onSubmit={this.login}>
             <h2>Sign in</h2>
@@ -93,7 +94,7 @@ class LoginPage extends React.Component {
           </FormDiv>
         </LoginDiv>
 
-        {/* Create account section */}
+        {/* REGISTER */}
         <LoginDiv>
           <FormDiv onSubmit={this.register}>
             <h2>Create an account</h2>
