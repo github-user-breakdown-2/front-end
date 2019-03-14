@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import styled from "styled-components";
 import { getUserData, deleteUser } from "../actions";
 import { Link } from "react-router-dom";
+import Loader from "react-loader-spinner";
 
 const PageWrapper = styled.div``;
 
@@ -25,12 +26,26 @@ const FormWrapper = styled.div`
     input {
       margin: 10px 0;
       font-size: 18px;
+      border-radius: 5px;
+      border: 2px solid #9f86ff;
     }
     button {
-      margin: 10px 0;
-      border: none;
-      background-color: #9f86ff;
+      border: 0;
+      padding: 5px 0;
+      font-size: 20px;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      background: #9f86ff;
+      color: white;
+      transition: all.5s ease;
+      margin-top: 20px;
+      border-radius: 5px;
       cursor: pointer;
+
+      &:hover {
+        background: #5933f0;
+      }
     }
   }
 `;
@@ -121,20 +136,21 @@ class GithubUsers extends React.Component {
             <button> search </button>
           </form>
         </FormWrapper>
-        <UserCardsContainer>
+
+        {this.props.fetching ? (<Loader type="TailSpin" color="black" height={80} width={80} />) :
+        (<UserCardsContainer>
           {this.props.users.map(user => (
             <Link to={`/github-users/${user.user}`} key={user.user}>
               <UserCard>
-                <button onClick={e => this.deleteUser(e, user.user)}>
-                  X
-                </button>
+                <button onClick={e => this.deleteUser(e, user.user)}>X</button>
                 <div> {user.user} </div>
                 <img src={user.avatar} alt="" />
                 <div>Repo Count: {user.repo_count} </div>
               </UserCard>
             </Link>
           ))}
-        </UserCardsContainer>
+        </UserCardsContainer>)
+        }
       </PageWrapper>
     );
   }
@@ -142,7 +158,8 @@ class GithubUsers extends React.Component {
 
 const mapStateToProps = state => ({
   users: state.users,
-  summary: state.userSummary
+  summary: state.userSummary,
+  fetching: state.fetching
 });
 
 export default connect(
@@ -161,5 +178,3 @@ export default connect(
 //     </Link>
 //   ))
 // )}
-
-
