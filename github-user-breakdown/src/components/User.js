@@ -1,18 +1,8 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { getUserSummary, getUserDetailed } from "../actions";
-import {
-  XYPlot,
-  LineSeries,
-  VerticalGridLines,
-  HorizontalGridLines,
-  XAxis,
-  YAxis,
-  RadialChart
-} from "react-vis";
 import styled from "styled-components";
-
-const myData = [{ angle: 1 }, { angle: 5 }, { angle: 2 }, { angle: 10 }];
+import { VictoryPie } from "victory";
 
 const UserWrapper = styled.div`
   max-width: 400px;
@@ -26,7 +16,9 @@ const UserWrapper = styled.div`
 `;
 const Languages = styled.div`
   border: 2px solid black;
-  height: 200px;
+  max-width: 80%;
+  margin: 20px auto;
+  padding: 50px;
 `;
 
 const User = props => {
@@ -38,7 +30,14 @@ const User = props => {
     props.getUserDetailed(username);
   }, []);
 
-  if (props.summary.languages) {var x = (Object.entries(props.summary.languages))}
+  if (props.summary.languages) {
+    var languageSummary = Object.entries(props.summary.languages).map(item => {
+      return item;
+    });
+  }
+
+  console.log(languageSummary);
+
   return (
     <>
       <UserWrapper>
@@ -46,21 +45,21 @@ const User = props => {
         <img src={user.avatar} alt="" />
       </UserWrapper>
 
-      {/* <RadialChart data={myData} width={300} height={300} /> */}
-
       {props.summary.length === 0 ? (
         <div> Loading.. </div>
       ) : (
         <Languages>
-          REPOS USING
-          {/* <hr />
-          HTML: {props.summary.languages.HTML}
+          Languages Used
           <hr />
-          CSS: {props.summary.languages.CSS}
-          <hr />
-          JAVASCRIPT: {props.summary.languages.JavaScript} */}
-          <hr/>
-          {x}
+          <VictoryPie
+            width={500}
+            colorScale={["#9f86ff", "#9ca4b6", "#5933f0", "#9ca4b6", "navy" ]}
+            data={[
+              { x: "HTML", y: 35 },
+              { x: "CSS", y: 40 },
+              { x: "JavaScript", y: 55 }
+            ]}
+          />
         </Languages>
       )}
     </>
@@ -85,3 +84,10 @@ export default connect(
 //     <img src={user.avatar_url} alt="" />
 //   </div>
 // ))}
+
+/* <hr />
+          HTML: {props.summary.languages.HTML}
+          <hr />
+          CSS: {props.summary.languages.CSS}
+          <hr />
+          JAVASCRIPT: {props.summary.languages.JavaScript} */
