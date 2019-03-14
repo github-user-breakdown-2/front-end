@@ -2,7 +2,12 @@ import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { getUserSummary, getUserDetailed } from "../actions";
 import styled from "styled-components";
-import { VictoryPie } from "victory";
+import { VictoryPie, VictoryChart, VictoryBar } from "victory";
+
+const DaysBarGraph = styled.div`
+  width: 500px;
+  height: auto;
+`;
 
 const UserWrapper = styled.div`
   max-width: 400px;
@@ -21,6 +26,16 @@ const Languages = styled.div`
   padding: 50px;
 `;
 
+const barData = [
+  {weekDay: 'Mon', commits: 16},
+  {weekDay: 'Tue', commits: 5},
+  {weekDay: 'Wed', commits: 7},
+  {weekDay: 'Thu', commits: 8},
+  {weekDay: 'Fri', commits: 19},
+  {weekDay: 'Sat', commits: 0},
+  {weekDay: 'Sun', commits: 19},
+];
+
 const User = props => {
   const username = props.match.params.user;
   let user = props.users.filter(user => user.user === username)[0];
@@ -30,13 +45,17 @@ const User = props => {
     props.getUserDetailed(username);
   }, []);
 
-  if (props.summary.languages) {
-    var languageSummary = Object.entries(props.summary.languages).map(item => {
-      return item;
-    });
-  }
+  // if (props.summary.languages) {
+  //   var languageSummary = Object.entries(props.summary.languages).map(item => {
+  //     return item;
+  //   });
+  // }
 
-  console.log(languageSummary);
+  if (props.summary.languages) {
+    const x = Object.entries(props.summary.languages);
+    var data = Object.assign(x.map(d => ({ x: d[0], y: d[1] })));
+  }
+  console.log(data);
 
   return (
     <>
@@ -53,15 +72,17 @@ const User = props => {
           <hr />
           <VictoryPie
             width={500}
-            colorScale={["#9f86ff", "#9ca4b6", "#5933f0", "#9ca4b6", "navy" ]}
-            data={[
-              { x: "HTML", y: 35 },
-              { x: "CSS", y: 40 },
-              { x: "JavaScript", y: 55 }
-            ]}
+            colorScale={["#9f86ff", "#9ca4b6", "#5933f0", "purple", "navy"]}
+            data={data}
           />
         </Languages>
       )}
+
+      <DaysBarGraph>
+        <VictoryChart domainPadding={20}>
+          <VictoryBar data={barData} x="weekDay" y="commits" />
+        </VictoryChart>
+      </DaysBarGraph>
     </>
   );
 };
