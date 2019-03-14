@@ -3,6 +3,8 @@ import { connect } from "react-redux";
 import { getUserSummary, getUserDetailed } from "../actions";
 import styled from "styled-components";
 import { VictoryPie, VictoryChart, VictoryBar } from "victory";
+import Hours from "./Hours";
+import Days from "./Days";
 
 const DaysBarGraph = styled.div`
   width: 500px;
@@ -26,15 +28,15 @@ const Languages = styled.div`
   padding: 50px;
 `;
 
-const barData = [
-  {weekDay: 'Mon', commits: 16},
-  {weekDay: 'Tue', commits: 5},
-  {weekDay: 'Wed', commits: 7},
-  {weekDay: 'Thu', commits: 8},
-  {weekDay: 'Fri', commits: 19},
-  {weekDay: 'Sat', commits: 0},
-  {weekDay: 'Sun', commits: 19},
-];
+// const barData = [
+//   {weekDay: 'Mon', commits: 16},
+//   {weekDay: 'Tue', commits: 5},
+//   {weekDay: 'Wed', commits: 7},
+//   {weekDay: 'Thu', commits: 8},
+//   {weekDay: 'Fri', commits: 19},
+//   {weekDay: 'Sat', commits: 0},
+//   {weekDay: 'Sun', commits: 19},
+// ];
 
 const User = props => {
   const username = props.match.params.user;
@@ -45,17 +47,16 @@ const User = props => {
     props.getUserDetailed(username);
   }, []);
 
-  // if (props.summary.languages) {
-  //   var languageSummary = Object.entries(props.summary.languages).map(item => {
-  //     return item;
-  //   });
-  // }
-
   if (props.summary.languages) {
     const x = Object.entries(props.summary.languages);
     var data = Object.assign(x.map(d => ({ x: d[0], y: d[1] })));
   }
-  console.log(data);
+
+  if (props.detailed.day) {
+    const x = Object.entries(props.summary.languages);
+    var dayData = Object.assign(x.map(d => ({ x: d[0], y: d[1] })));
+    console.log(dayData);
+  }
 
   return (
     <>
@@ -77,12 +78,22 @@ const User = props => {
           />
         </Languages>
       )}
-
-      <DaysBarGraph>
-        <VictoryChart domainPadding={20}>
-          <VictoryBar data={barData} x="weekDay" y="commits" />
-        </VictoryChart>
-      </DaysBarGraph>
+      {/*  */}
+      <div>
+        {props.detailed.length === 0 ? (
+          <div> Loading.. </div>
+        ) : (
+          <Hours hours={props.detailed.hour} />
+        )}
+      </div>
+      {/*  */}
+      <div>
+        {props.detailed.length === 0 ? (
+          <div> Loading.. </div>
+        ) : (
+          <Days days={props.detailed.day} />
+        )}
+      </div>
     </>
   );
 };
