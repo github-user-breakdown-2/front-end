@@ -18,6 +18,7 @@ const FormWrapper = styled.div`
   padding: 30px;
   border-radius: 3px;
   background-color: #f8f8f8;
+
   form {
     display: flex;
     flex-direction: column;
@@ -50,6 +51,7 @@ const UserCard = styled.div`
     width: 20px;
     position: relative;
     left: -75px;
+
     &:hover {
       background-color: red;
     }
@@ -78,6 +80,7 @@ const UserCardsContainer = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
+
     &:hover {
       box-shadow: 0 2px 10px black;
     }
@@ -158,3 +161,5 @@ export default connect(
 //     </Link>
 //   ))
 // )}
+
+

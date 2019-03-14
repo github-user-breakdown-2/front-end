@@ -123,3 +123,4 @@ export const deleteUser = id => {
 
 // const users = await axios.get(`https://api.github.com/search/users?q=${user}`);
 // const usersCompressed = users.data.items.map(user => (user = user.login));
+
