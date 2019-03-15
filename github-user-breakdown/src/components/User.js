@@ -23,7 +23,7 @@ const UserWrapper = styled.div`
 
   h2 {
     font-size: 30px
-    color: #2f323a;
+    color: #f8f8f8;
   }
 `;
 const Languages = styled.div`
@@ -31,6 +31,8 @@ const Languages = styled.div`
   max-width: 50%;
   margin: 20px auto;
   padding: 50px;
+  background-color: #f8f8f8;
+  tex-align: center;
 `;
 
 
@@ -66,7 +68,9 @@ const User = props => {
         <Loader type="TailSpin" color="black" height={80} width={80} />
       ) : (
         <Languages>
-          Languages Used
+          <h2>
+            Languages Used
+          </h2>
           <hr />
           <VictoryPie
             innerRadius={100}

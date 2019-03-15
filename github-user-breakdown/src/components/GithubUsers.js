@@ -13,7 +13,6 @@ const FormWrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  border: 2px solid black;
   max-width: 300px;
   margin: 20px auto;
   padding: 30px;
@@ -57,6 +56,8 @@ const UserCard = styled.div`
   justify-content: center;
   align-items: center;
   padding: 10px;
+  background-color: #f8f8f8;
+  border-radius: 20px;
   button {
     border: none;
     background-color: #5933f0;
@@ -85,9 +86,8 @@ const UserCardsContainer = styled.div`
   flex-wrap: wrap;
   a {
     width: 180px;
-    border: 2px solid black;
     border-radius: 10px;
-    margin: 10px;
+    margin: 18px;
     font-size: 18px;
     text-decoration: none;
     color: black;
@@ -95,9 +95,10 @@ const UserCardsContainer = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    transition: all .3s ease;
 
     &:hover {
-      box-shadow: 0 2px 10px black;
+      box-shadow: 0px 0px 50px 10px #9f86ff;
     }
   }
 `;
@@ -143,8 +144,8 @@ class GithubUsers extends React.Component {
             <Link to={`/github-users/${user.user}`} key={user.user}>
               <UserCard>
                 <button onClick={e => this.deleteUser(e, user.user)}>X</button>
-                <div> {user.user} </div>
                 <img src={user.avatar} alt="" />
+                <div> {user.user} </div>
                 <div>Repo Count: {user.repo_count} </div>
               </UserCard>
             </Link>

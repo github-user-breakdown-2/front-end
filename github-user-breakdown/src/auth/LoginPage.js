@@ -10,10 +10,10 @@ const Wrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  border: 2px solid black;
   max-width: 300px;
-  margin: 20px auto;
+  margin: 100px auto;
   padding: 30px;
+  background-color: #f8f8f8;
   form {
     display: flex;
     flex-direction: column;

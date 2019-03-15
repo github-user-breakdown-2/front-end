@@ -8,7 +8,7 @@ const Days = props => {
   return (
     <div className="Hour">
       Commits per day
-      <VictoryChart domainPadding={20}>
+      <VictoryChart domainPadding={10}>
         <VictoryBar data={results} />
       </VictoryChart>
     </div>
