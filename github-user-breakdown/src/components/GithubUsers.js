@@ -36,7 +36,7 @@ const FormWrapper = styled.div`
     font-weight: 600;
     margin: 20px 0 10px 0;
   }
-  
+
   form {
     display: flex;
     flex-direction: column;
@@ -94,6 +94,7 @@ const UserCard = styled.div`
     left: 105px;
     border-radius: 5px;
     ${'' /* box-shadow: 0 0 16px 0 rgba(0,0,0,.1); */}
+
     &:hover {
       background-color: #5933f0;
       color: white;
@@ -123,7 +124,7 @@ const UserCardsContainer = styled.div`
     color: black;
     box-shadow: 0 0 16px 0 rgba(0,0,0,.1);
     margin: 20px;
-    
+
     &:hover {
       box-shadow: 0 8px 15px 0 rgba(0,0,0,.1);
     }
@@ -212,3 +213,5 @@ export default connect(
 //     </Link>
 //   ))
 // )}
+
+

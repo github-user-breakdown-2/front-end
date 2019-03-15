@@ -180,5 +180,5 @@ const mapStateToProps = ({ error, loggingIn, registering }) => ({
 
 export default connect(
   mapStateToProps,
-  { login, register }
-)(LoginPage);
+  { login, register })(LoginPage);
+
