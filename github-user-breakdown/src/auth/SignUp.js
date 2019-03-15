@@ -129,7 +129,7 @@ class LoginPage extends React.Component {
   render() {
     return (
       <Wrapper>
-        <H1>Log in to GitHub Users</H1>
+        <H1>Sign up for GitHub Users</H1>
         <Form>
           <form>
             <p>Email address</p>
@@ -152,7 +152,7 @@ class LoginPage extends React.Component {
               {this.props.loggingIn ? (
                 <Loader type="ThreeDots" color="#1f2a38" height="12" width="26" />
               ) : (
-                "Log in"
+                "Sign up"
               )}
             </button>
             {/* <button onClick={this.register}>
@@ -165,7 +165,7 @@ class LoginPage extends React.Component {
           </form>
         </Form>
         <CreateDiv>
-          <p>New to GitHub Users? <a href="">Create an account.</a></p>
+          <p>Already have an account? <a href="">Login.</a></p>
         </CreateDiv>
       </Wrapper>
     );
@@ -180,5 +180,5 @@ const mapStateToProps = ({ error, loggingIn, registering }) => ({
 
 export default connect(
   mapStateToProps,
-  { login, register })(LoginPage);
-
+  { login, register }
+)(LoginPage);
