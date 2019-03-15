@@ -7,6 +7,30 @@ import Loader from "react-loader-spinner";
 
 const PageWrapper = styled.div``;
 
+const Nav = styled.div`
+  background-color: #dedfe0;
+  height: 50px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+
+  a {
+    font-size: 20px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #2f323a;
+    transition: all .1s ease;
+    cursor: pointer;
+    margin-left: 40px;
+    text-decoration: none;
+
+    &:hover {
+      color: #9f86ff;
+    }
+  }
+`;
+
 const FormWrapper = styled.div`
   text-align: center;
   display: flex;
@@ -95,7 +119,7 @@ const UserCardsContainer = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    transition: all .3s ease;
+    transition: all 0.3s ease;
 
     &:hover {
       box-shadow: 0px 0px 50px 10px #9f86ff;
@@ -125,6 +149,9 @@ class GithubUsers extends React.Component {
   render() {
     return (
       <PageWrapper>
+        <Nav>
+          <Link to="/">Logout</Link>
+        </Nav>
         <FormWrapper>
           <form onSubmit={this.handleSubmit}>
             <input
@@ -134,12 +161,22 @@ class GithubUsers extends React.Component {
               onChange={this.handleChange}
               placeholder="search for user..."
             />
-            <button> search </button>
+            <button>
+              {this.props.fetching ? (
+                <Loader
+                  type="ThreeDots"
+                  color="#1f2a38"
+                  height="12"
+                  width="26"
+                />
+              ) : (
+                "search "
+              )}
+            </button>
           </form>
         </FormWrapper>
 
-        {this.props.fetching ? (<Loader type="TailSpin" color="black" height={80} width={80} />) :
-        (<UserCardsContainer>
+        <UserCardsContainer>
           {this.props.users.map(user => (
             <Link to={`/github-users/${user.user}`} key={user.user}>
               <UserCard>
@@ -150,8 +187,7 @@ class GithubUsers extends React.Component {
               </UserCard>
             </Link>
           ))}
-        </UserCardsContainer>)
-        }
+        </UserCardsContainer>
       </PageWrapper>
     );
   }

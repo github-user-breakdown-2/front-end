@@ -6,35 +6,71 @@ import { VictoryPie } from "victory";
 import Hours from "./Hours";
 import Days from "./Days";
 import Loader from "react-loader-spinner";
+import { Link } from "react-router-dom";
+
+const Nav = styled.div`
+  background-color: #dedfe0;
+  height: 50px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+
+  a {
+    font-size: 20px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #2f323a;
+    transition: all 0.1s ease;
+    cursor: pointer;
+    margin-left: 40px;
+    text-decoration: none;
+
+    &:hover {
+      color: #9f86ff;
+    }
+  }
+`;
+
+const PageWrapper = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+`;
+
+const Stats = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  background-color: #f8f8f8;
+`;
 
 const UserWrapper = styled.div`
   width: 100%;
-  margin: 20px auto;
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   border-bottom: 2px solid black;
+  background-color: #dedfe0;
   img {
-    max-width: 200px;
-    max-height: 200px;
+    margin-top: 20px;
+    max-width:100px;
+    max-height:100px;
     border-radius: 50%;
   }
 
   h2 {
     font-size: 30px
-    color: #f8f8f8;
+    color: black;
   }
 `;
 const Languages = styled.div`
-  border: 2px solid black;
   max-width: 50%;
   margin: 20px auto;
   padding: 50px;
-  background-color: #f8f8f8;
   tex-align: center;
 `;
-
 
 const User = props => {
   const username = props.match.params.user;
@@ -57,46 +93,57 @@ const User = props => {
   }
 
   return (
-    <>
+    <PageWrapper>
       <UserWrapper>
+        <Nav>
+          <Link to="/">Logout</Link>
+          <Link to="/github-users"> User Search </Link>
+        </Nav>
         <img src={user.avatar} alt="" />
         <h2>{user.user}</h2>
-
       </UserWrapper>
 
-      {props.summary.length === 0 ? (
-        <Loader type="TailSpin" color="black" height={80} width={80} />
-      ) : (
+      <Stats>
+        {props.summary.length === 0 ? (
+          <Loader type="TailSpin" color="black" height={80} width={80} />
+        ) : (
+          <Languages>
+            <h2>Languages Used</h2>
+            <hr />
+            <VictoryPie
+              innerRadius={100}
+              width={500}
+              colorScale={[
+                "#9f86ff",
+                "#9ca4b6",
+                "#5933f0",
+                "purple",
+                "navy",
+                "coral",
+                "#fae"
+              ]}
+              data={data}
+            />
+          </Languages>
+        )}
+        {/*  */}
         <Languages>
-          <h2>
-            Languages Used
-          </h2>
-          <hr />
-          <VictoryPie
-            innerRadius={100}
-            width={500}
-            colorScale={["#9f86ff", "#9ca4b6", "#5933f0", "purple", "navy", "coral", "#fae"]}
-            data={data}
-          />
+          {props.detailed.length === 0 ? (
+            <Loader type="TailSpin" color="black" height={80} width={80} />
+          ) : (
+            <Hours hours={props.detailed.hour} />
+          )}
         </Languages>
-      )}
-      {/*  */}
-      <div>
-        {props.detailed.length === 0 ? (
-          <Loader type="TailSpin" color="black" height={80} width={80} />
-        ) : (
-          <Hours hours={props.detailed.hour} />
-        )}
-      </div>
-      {/*  */}
-      <div>
-        {props.detailed.length === 0 ? (
-          <Loader type="TailSpin" color="black" height={80} width={80} />
-        ) : (
-          <Days days={props.detailed.day} />
-        )}
-      </div>
-    </>
+        {/*  */}
+        <Languages>
+          {props.detailed.length === 0 ? (
+            <Loader type="TailSpin" color="black" height={80} width={80} />
+          ) : (
+            <Days days={props.detailed.day} />
+          )}
+        </Languages>
+      </Stats>
+    </PageWrapper>
   );
 };
 
