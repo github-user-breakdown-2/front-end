@@ -7,13 +7,37 @@ const Days = props => {
 
   return (
     <div className="Hour">
-      Commits per day
-      <VictoryChart domainPadding={20}>
-        <VictoryBar data={results} />
+      <h2>Commits per day</h2>
+      <hr />
+      <VictoryChart
+        style={{
+          axis: {
+            fill: "transparent",
+            stroke: "#f8f8f8",
+            strokeWidth: 1
+          }
+        }}
+        domainPadding={10}
+        animate={{ duration: 2000 }}
+      >
+        <VictoryBar
+          style={{ data: { fill: "#9f86ff", stroke: "black", strokeWidth: 2 } }}
+          data={results}
+          animate={{
+            onExit: {
+              duration: 500,
+              before: () => ({ opacity: 0.3, _y: 0 })
+            },
+            onEnter: {
+              duration: 500,
+              before: () => ({ opacity: 0.3, _y: 0 }),
+              after: datum => ({ opacity: 1, _y: datum._y })
+            }
+          }}
+        />
       </VictoryChart>
     </div>
   );
 };
 
 export default Days;
-

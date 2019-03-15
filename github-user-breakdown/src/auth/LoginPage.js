@@ -10,22 +10,36 @@ const Wrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  border: 2px solid black;
   max-width: 300px;
-  margin: 20px auto;
+  margin: 100px auto;
   padding: 30px;
+  background-color: #f8f8f8;
   form {
     display: flex;
     flex-direction: column;
     input {
       margin: 10px 0;
       font-size: 18px;
+      border-radius: 5px;
+      border: 2px solid #9f86ff;
     }
     button {
-      margin: 10px 0;
-      border: none;
-      background-color: #9f86ff;
+      border: 0;
+      padding: 5px 0;
+      font-size: 20px;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      background: #9f86ff;
+      color: white;
+      transition: all.5s ease;
+      margin-top: 20px;
+      border-radius: 5px;
       cursor: pointer;
+
+      &:hover {
+        background: #5933f0;
+      }
     }
   }
 `;
@@ -56,10 +70,8 @@ class LoginPage extends React.Component {
 
   login = e => {
     e.preventDefault();
-    this.props
-    .login(this.state.credentials);
-    setTimeout(() => this.props.history.push('/github-users'), 1000);
-    
+    this.props.login(this.state.credentials);
+    setTimeout(() => this.props.history.push("/github-users"), 1000);
   };
 
   register = e => {
@@ -70,7 +82,7 @@ class LoginPage extends React.Component {
   render() {
     return (
       <Wrapper>
-        <h1>Login To GitHub Users</h1>
+        <h1>GitHub User Breakdown</h1>
         <form>
           <input
             type="text"
@@ -100,16 +112,20 @@ class LoginPage extends React.Component {
               "Sign Up"
             )}
           </button>
+          <p>No account? Enter an email and password then click the sign up button</p>
         </form>
+
+        {this.props.registerSuccess ? alert('Successfully registered... go ahead and log in') : <div></div> }
       </Wrapper>
     );
   }
 }
 
-const mapStateToProps = ({ error, loggingIn, registering }) => ({
+const mapStateToProps = ({ error, loggingIn, registering, registerSuccess }) => ({
   error,
   loggingIn,
-  registering
+  registering,
+  registerSuccess
 });
 
 export default connect(

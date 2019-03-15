@@ -23,6 +23,7 @@ export const initialState = {
   userDetailed: [],
   fetching: false,
   registering: false,
+  registerSuccess: false,
   loggingIn: false,
   token: localStorage.getItem("token"),
   error: null
@@ -41,7 +42,8 @@ const reducer = (state = initialState, action) => {
         ...state,
         error: null,
         token: action.payload,
-        registering: false
+        registering: false,
+        registerSuccess: true
       };
     case REGISTER_FAIL:
       return {
@@ -53,7 +55,8 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         error: null,
-        loggingIn: true
+        loggingIn: true,
+        registerSuccess: false
       };
     case LOGIN_SUCCESS:
       return {

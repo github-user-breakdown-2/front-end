@@ -2,40 +2,75 @@ import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { getUserSummary, getUserDetailed } from "../actions";
 import styled from "styled-components";
-import { VictoryPie, VictoryChart, VictoryBar } from "victory";
+import { VictoryPie } from "victory";
 import Hours from "./Hours";
 import Days from "./Days";
+import Loader from "react-loader-spinner";
+import { Link } from "react-router-dom";
 
-const DaysBarGraph = styled.div`
-  width: 500px;
-  height: auto;
+const Nav = styled.div`
+  background-color: #dedfe0;
+  height: 50px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+
+  a {
+    font-size: 20px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #2f323a;
+    transition: all 0.1s ease;
+    cursor: pointer;
+    margin-left: 40px;
+    text-decoration: none;
+
+    &:hover {
+      color: #9f86ff;
+    }
+  }
+`;
+
+const PageWrapper = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+`;
+
+const Stats = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  background-color: #f8f8f8;
 `;
 
 const UserWrapper = styled.div`
-  max-width: 400px;
-  margin: 20px auto;
+  width: 100%;
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 2px solid black;
+  background-color: #dedfe0;
   img {
-    max-width: 200px;
+    margin-top: 20px;
+    max-width:100px;
+    max-height:100px;
+    border-radius: 50%;
+  }
+
+  h2 {
+    font-size: 30px
+    color: black;
   }
 `;
 const Languages = styled.div`
-  border: 2px solid black;
-  max-width: 80%;
+  max-width: 50%;
   margin: 20px auto;
   padding: 50px;
+  tex-align: center;
 `;
-
-// const barData = [
-//   {weekDay: 'Mon', commits: 16},
-//   {weekDay: 'Tue', commits: 5},
-//   {weekDay: 'Wed', commits: 7},
-//   {weekDay: 'Thu', commits: 8},
-//   {weekDay: 'Fri', commits: 19},
-//   {weekDay: 'Sat', commits: 0},
-//   {weekDay: 'Sun', commits: 19},
-// ];
 
 const User = props => {
   const username = props.match.params.user;
@@ -58,42 +93,57 @@ const User = props => {
   }
 
   return (
-    <>
+    <PageWrapper>
       <UserWrapper>
-        {user.user}
+        <Nav>
+          <Link to="/">Logout</Link>
+          <Link to="/github-users"> User Search </Link>
+        </Nav>
         <img src={user.avatar} alt="" />
+        <h2>{user.user}</h2>
       </UserWrapper>
 
-      {props.summary.length === 0 ? (
-        <div> Loading.. </div>
-      ) : (
+      <Stats>
+        {props.summary.length === 0 ? (
+          <Loader type="TailSpin" color="black" height={80} width={80} />
+        ) : (
+          <Languages>
+            <h2>Languages Used</h2>
+            <hr />
+            <VictoryPie
+              innerRadius={100}
+              width={500}
+              colorScale={[
+                "#9f86ff",
+                "#9ca4b6",
+                "#5933f0",
+                "purple",
+                "navy",
+                "coral",
+                "#fae"
+              ]}
+              data={data}
+            />
+          </Languages>
+        )}
+        {/*  */}
         <Languages>
-          Languages Used
-          <hr />
-          <VictoryPie
-            width={500}
-            colorScale={["#9f86ff", "#9ca4b6", "#5933f0", "purple", "navy"]}
-            data={data}
-          />
+          {props.detailed.length === 0 ? (
+            <Loader type="TailSpin" color="black" height={80} width={80} />
+          ) : (
+            <Hours hours={props.detailed.hour} />
+          )}
         </Languages>
-      )}
-      {/*  */}
-      <div>
-        {props.detailed.length === 0 ? (
-          <div> Loading.. </div>
-        ) : (
-          <Hours hours={props.detailed.hour} />
-        )}
-      </div>
-      {/*  */}
-      <div>
-        {props.detailed.length === 0 ? (
-          <div> Loading.. </div>
-        ) : (
-          <Days days={props.detailed.day} />
-        )}
-      </div>
-    </>
+        {/*  */}
+        <Languages>
+          {props.detailed.length === 0 ? (
+            <Loader type="TailSpin" color="black" height={80} width={80} />
+          ) : (
+            <Days days={props.detailed.day} />
+          )}
+        </Languages>
+      </Stats>
+    </PageWrapper>
   );
 };
 

@@ -3,8 +3,33 @@ import { connect } from "react-redux";
 import styled from "styled-components";
 import { getUserData, deleteUser } from "../actions";
 import { Link } from "react-router-dom";
+import Loader from "react-loader-spinner";
 
 const PageWrapper = styled.div``;
+
+const Nav = styled.div`
+  background-color: #dedfe0;
+  height: 50px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+
+  a {
+    font-size: 20px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #2f323a;
+    transition: all .1s ease;
+    cursor: pointer;
+    margin-left: 40px;
+    text-decoration: none;
+
+    &:hover {
+      color: #9f86ff;
+    }
+  }
+`;
 
 const FormWrapper = styled.div`
   text-align: center;
@@ -12,7 +37,6 @@ const FormWrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  border: 2px solid black;
   max-width: 300px;
   margin: 20px auto;
   padding: 30px;
@@ -25,12 +49,26 @@ const FormWrapper = styled.div`
     input {
       margin: 10px 0;
       font-size: 18px;
+      border-radius: 5px;
+      border: 2px solid #9f86ff;
     }
     button {
-      margin: 10px 0;
-      border: none;
-      background-color: #9f86ff;
+      border: 0;
+      padding: 5px 0;
+      font-size: 20px;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      background: #9f86ff;
+      color: white;
+      transition: all.5s ease;
+      margin-top: 20px;
+      border-radius: 5px;
       cursor: pointer;
+
+      &:hover {
+        background: #5933f0;
+      }
     }
   }
 `;
@@ -42,6 +80,8 @@ const UserCard = styled.div`
   justify-content: center;
   align-items: center;
   padding: 10px;
+  background-color: #f8f8f8;
+  border-radius: 20px;
   button {
     border: none;
     background-color: #5933f0;
@@ -70,9 +110,8 @@ const UserCardsContainer = styled.div`
   flex-wrap: wrap;
   a {
     width: 180px;
-    border: 2px solid black;
     border-radius: 10px;
-    margin: 10px;
+    margin: 18px;
     font-size: 18px;
     text-decoration: none;
     color: black;
@@ -80,9 +119,10 @@ const UserCardsContainer = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    transition: all 0.3s ease;
 
     &:hover {
-      box-shadow: 0 2px 10px black;
+      box-shadow: 0px 0px 50px 10px #9f86ff;
     }
   }
 `;
@@ -109,6 +149,9 @@ class GithubUsers extends React.Component {
   render() {
     return (
       <PageWrapper>
+        <Nav>
+          <Link to="/">Logout</Link>
+        </Nav>
         <FormWrapper>
           <form onSubmit={this.handleSubmit}>
             <input
@@ -118,18 +161,28 @@ class GithubUsers extends React.Component {
               onChange={this.handleChange}
               placeholder="search for user..."
             />
-            <button> search </button>
+            <button>
+              {this.props.fetching ? (
+                <Loader
+                  type="ThreeDots"
+                  color="#1f2a38"
+                  height="12"
+                  width="26"
+                />
+              ) : (
+                "search "
+              )}
+            </button>
           </form>
         </FormWrapper>
+
         <UserCardsContainer>
           {this.props.users.map(user => (
             <Link to={`/github-users/${user.user}`} key={user.user}>
               <UserCard>
-                <button onClick={e => this.deleteUser(e, user.user)}>
-                  X
-                </button>
-                <div> {user.user} </div>
+                <button onClick={e => this.deleteUser(e, user.user)}>X</button>
                 <img src={user.avatar} alt="" />
+                <div> {user.user} </div>
                 <div>Repo Count: {user.repo_count} </div>
               </UserCard>
             </Link>
@@ -142,7 +195,8 @@ class GithubUsers extends React.Component {
 
 const mapStateToProps = state => ({
   users: state.users,
-  summary: state.userSummary
+  summary: state.userSummary,
+  fetching: state.fetching
 });
 
 export default connect(
@@ -161,5 +215,3 @@ export default connect(
 //     </Link>
 //   ))
 // )}
-
-
